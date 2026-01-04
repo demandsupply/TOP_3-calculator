@@ -38,6 +38,14 @@ keys.forEach((key) =>
 // create 3 variables, one for each part of the operation
 
 // create operate function which takes in a number, an operator and another number
+function operate(firstOperand, operator, secondOperand) {
+  firstOperand = Number(firstOperand);
+  secondOperand = Number(secondOperand);
+  if (operator === "+") return firstOperand + secondOperand;
+  if (operator === "-") return firstOperand - secondOperand;
+  if (operator === "*") return firstOperand * secondOperand;
+  if (operator === "/") return firstOperand / secondOperand;
+}
 
 // given the operator, perform a sum/subtract/multipy/divide operation
 
@@ -100,14 +108,24 @@ operands.forEach((operand) =>
   })
 );
 
-operators.forEach((operator) =>
-  operator.addEventListener("click", () => {
-    operator = operator.innerHTML;
-    console.log("operator", operator);
-    display.textContent = operator;
-    checkOperator = true;
-    console.log(
-      `first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
-    );
+operators.forEach((operatorBtn) =>
+  operatorBtn.addEventListener("click", () => {
+    if (operatorBtn.innerHTML === "=") {
+      console.log("= OPERATOR");
+
+      let result = operate(firstOperand, operator, secondOperand);
+      console.log(result);
+    } else {
+      console.log("NORMAL OPERATOR");
+      console.log("operator .innerHTML", operatorBtn.innerHTML);
+
+      operator = operatorBtn.innerHTML;
+      console.log("operator", operator);
+      display.textContent = operator;
+      checkOperator = true;
+      console.log(
+        `first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
+      );
+    }
   })
 );
