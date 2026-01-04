@@ -6,6 +6,7 @@ const clearBtn = document.querySelector('[data-type="clear"]');
 const decimalBtn = document.querySelector('[data-type="decimal"]');
 const moduloBtn = document.querySelector('[data-type="modulo"]');
 const signBtn = document.querySelector('[data-type="sign"]');
+const display = document.querySelector(".display");
 console.log(operands);
 console.log(clearBtn);
 console.log(decimalBtn);
@@ -39,7 +40,13 @@ keys.forEach((key) =>
 // show an error if the user try to divides a number by 0
 
 // create the clear function
+function clearDisplay() {
+  display.textContent = "";
+}
 
 // create the change sign function
 
 // create the percentage function
+
+// add listeners to buttons
+clearBtn.addEventListener("click", clearDisplay);
