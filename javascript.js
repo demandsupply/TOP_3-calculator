@@ -16,9 +16,11 @@ console.log(signBtn);
 let firstOperand;
 let secondOperand;
 let operator;
+let result;
 let checkFirstOperand = false;
 let checkSecondOperand = false;
 let checkOperator = false;
+let checkResult = false;
 const checkDecimal = false;
 
 keys.forEach((key) =>
@@ -43,7 +45,7 @@ function operate(firstOperand, operator, secondOperand) {
   secondOperand = Number(secondOperand);
   if (operator === "+") return firstOperand + secondOperand;
   if (operator === "-") return firstOperand - secondOperand;
-  if (operator === "*") return firstOperand * secondOperand;
+  if (operator === "x") return firstOperand * secondOperand;
   if (operator === "/") return firstOperand / secondOperand;
 }
 
@@ -63,9 +65,11 @@ function clear() {
   firstOperand = "";
   secondOperand = "";
   operator = "";
+  result = "";
   checkFirstOperand = false;
   checkOperator = false;
   checkSecondOperand = false;
+  checkResult = false;
   display.textContent = "0";
 }
 
@@ -111,16 +115,12 @@ operands.forEach((operand) =>
 operators.forEach((operatorBtn) =>
   operatorBtn.addEventListener("click", () => {
     if (operatorBtn.innerHTML === "=") {
-      console.log("= OPERATOR");
-
-      let result = operate(firstOperand, operator, secondOperand);
+      result = operate(firstOperand, operator, secondOperand);
       console.log(result);
+      display.textContent = result;
+      checkResult = true;
     } else {
-      console.log("NORMAL OPERATOR");
-      console.log("operator .innerHTML", operatorBtn.innerHTML);
-
       operator = operatorBtn.innerHTML;
-      console.log("operator", operator);
       display.textContent = operator;
       checkOperator = true;
       console.log(
