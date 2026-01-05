@@ -47,12 +47,16 @@ function operate(firstOperand, operator, secondOperand) {
   if (operator === "+") return firstOperand + secondOperand;
   if (operator === "-") return firstOperand - secondOperand;
   if (operator === "x") return firstOperand * secondOperand;
-  if (operator === "/") return firstOperand / secondOperand;
+  if (operator === "/") {
+    // show an error if the user try to divides a number by 0
+    if (secondOperand == 0) {
+      alert("cannot divide a number by zero!");
+      return;
+    }
+
+    return firstOperand / secondOperand;
+  }
 }
-
-// if a new digit is add after the result, clear the result and start from the new digit
-
-// show an error if the user try to divides a number by 0
 
 // create the clear function
 function clear() {
@@ -77,6 +81,7 @@ clearBtn.addEventListener("click", clear);
 operands.forEach((operand) =>
   operand.addEventListener("click", () => {
     if (!checkFirstOperand) {
+      // if a new digit is add after the result, reset the result flag and start from the new digit
       checkResult = false;
       firstOperand = operand.innerHTML;
       display.textContent = firstOperand;
