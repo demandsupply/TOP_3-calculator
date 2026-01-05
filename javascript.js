@@ -43,18 +43,12 @@ keys.forEach((key) =>
 function operate(firstOperand, operator, secondOperand) {
   firstOperand = Number(firstOperand);
   secondOperand = Number(secondOperand);
+  // given the operator, perform a sum/subtract/multipy/divide operation
   if (operator === "+") return firstOperand + secondOperand;
   if (operator === "-") return firstOperand - secondOperand;
   if (operator === "x") return firstOperand * secondOperand;
   if (operator === "/") return firstOperand / secondOperand;
 }
-
-// given the operator, perform a sum/subtract/multipy/divide operation
-
-// display the result, and round the long decimals
-
-// if the user add another operator after the result, the result will become the new first number of the next operation
-// if the user input two or more consecutive operators, keep the last one
 
 // if a new digit is add after the result, clear the result and start from the new digit
 
@@ -83,6 +77,7 @@ clearBtn.addEventListener("click", clear);
 operands.forEach((operand) =>
   operand.addEventListener("click", () => {
     if (!checkFirstOperand) {
+      checkResult = false;
       firstOperand = operand.innerHTML;
       display.textContent = firstOperand;
       checkFirstOperand = true;
@@ -117,9 +112,24 @@ operators.forEach((operatorBtn) =>
     if (operatorBtn.innerHTML === "=") {
       result = operate(firstOperand, operator, secondOperand);
       console.log(result);
+      // display the result, and round the long decimals
       display.textContent = result;
       checkResult = true;
+      checkFirstOperand = false;
+      checkSecondOperand = false;
+      checkOperator = false;
     } else {
+      // if the user add another operator after the result, the result will become the new first number of the next operation
+      if (checkResult) {
+        firstOperand = result;
+        checkFirstOperand = true;
+        checkResult = false;
+        checkSecondOperand = false;
+        checkOperator = false;
+        secondOperand = "";
+        operator = "";
+      }
+      // if the user input two or more consecutive operators, keep the last one
       operator = operatorBtn.innerHTML;
       display.textContent = operator;
       checkOperator = true;
