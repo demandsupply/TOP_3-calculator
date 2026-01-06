@@ -4,16 +4,17 @@ const operands = document.querySelectorAll('[data-type="operand"]');
 const operators = document.querySelectorAll('[data-type="operator"]');
 const clearBtn = document.querySelector('[data-type="clear"]');
 const decimalBtn = document.querySelector('[data-type="decimal"]');
-const moduloBtn = document.querySelector('[data-type="modulo"]');
+const percentageBtn = document.querySelector('[data-type="percentage"]');
 const signBtn = document.querySelector('[data-type="sign"]');
 const display = document.querySelector(".display");
 console.log(operands);
 console.log(clearBtn);
 console.log(decimalBtn);
-console.log(moduloBtn);
+console.log(percentageBtn);
 console.log(signBtn);
 
-let firstOperand;
+// a calcaulator operation consist of a number, an operator, and another number.
+// create 3 variables, one for each part of the operationlet firstOperand;
 let secondOperand;
 let operator;
 let result;
@@ -33,11 +34,6 @@ keys.forEach((key) =>
 );
 
 // keep separate "number-buttons" and "operator-buttons"
-
-// when a button is pressed, show its value on the screen (keep previous values)
-
-// a calcaulator operation consist of a number, an operator, and another number.
-// create 3 variables, one for each part of the operation
 
 // create operate function which takes in a number, an operator and another number
 function operate(firstOperand, operator, secondOperand) {
@@ -74,6 +70,39 @@ function clear() {
 // create the change sign function
 
 // create the percentage function
+function percentageCalc(firstOperand, operator, secondOperand) {
+  // if there is only one operand, calculate its percentage (x * 1 / 100)
+  if (!checkSecondOperand) {
+    firstOperand = Number(firstOperand);
+    return firstOperand / 100;
+  } else {
+    firstOperand = Number(firstOperand);
+    secondOperand = Number(secondOperand);
+    console.log("first operand and second operand ok, calculate result");
+    // if there are two operands, when:
+
+    // 1 the operator is "+" or "-",  calculate the percentage of the first operand and sub
+    // or sum from the first operand the result --> 25 - 10% = 25 - 25 * 10 / 100 = 22.5
+    if (operator === "+") {
+      console.log(
+        `operator: ${operator}, first operand: ${firstOperand}, second operand: ${secondOperand}`
+      );
+      return firstOperand + (firstOperand * secondOperand) / 100;
+    }
+    if (operator === "-") {
+      return firstOperand - (firstOperand * secondOperand) / 100;
+    }
+
+    // 2 the operator is "x" or "/", calculate the percentage of the operand and
+    // multiply or divide the other operand with the result --> 25 x 10 % = 25 x 0.1 = 2.5
+    if (operator === "x") {
+      return firstOperand * (secondOperand / 100);
+    }
+    if (operator === "/") {
+      return firstOperand / (secondOperand / 100);
+    }
+  }
+}
 
 // add listeners to buttons
 clearBtn.addEventListener("click", clear);
@@ -144,3 +173,22 @@ operators.forEach((operatorBtn) =>
     }
   })
 );
+
+percentageBtn.addEventListener("click", () => {
+  if (!checkFirstOperand) {
+    console.log("first operand empty, invalid use");
+    alert("Invalid format use");
+    return;
+  }
+
+  console.log(
+    `booleans situation: checkFirstOperand -> ${checkFirstOperand}, checkOperator -> ${checkOperator}, checkSecondOperand -> ${checkSecondOperand}`
+  );
+
+  if (checkFirstOperand && checkOperator && checkSecondOperand) {
+    display.textContent = percentageCalc(firstOperand, operator, secondOperand);
+    checkFirstOperand = true;
+  } else if (checkFirstOperand) {
+    display.textContent = percentageCalc(firstOperand);
+  }
+});
