@@ -68,6 +68,20 @@ function clear() {
 }
 
 // create the change sign function
+function changeSign() {
+  console.log("running change sign function");
+  if (checkFirstOperand && checkSecondOperand) {
+    console.log("apply change sign to second operand");
+    secondOperand = secondOperand * -1;
+    display.textContent = secondOperand;
+    // return secondOperand * -1;
+  } else if (checkFirstOperand) {
+    console.log("apply change sign to first operand");
+    firstOperand = firstOperand * -1;
+    display.textContent = firstOperand;
+    // return firstOperand * -1;
+  } else return;
+}
 
 // create the percentage function
 function percentageCalc(firstOperand, operator, secondOperand) {
@@ -231,6 +245,8 @@ percentageBtn.addEventListener("click", () => {
     checkFirstOperand = false;
   }
 });
+
+signBtn.addEventListener("click", () => changeSign());
 
 // TODO: implement an alternative calculation flow:
 // display operands and operators in real time,
