@@ -152,25 +152,57 @@ operators.forEach((operatorBtn) =>
       checkFirstOperand = false;
       checkSecondOperand = false;
       checkOperator = false;
-    } else {
-      // if the user add another operator after the result, the result will become the new first number of the next operation
-      if (checkResult) {
-        firstOperand = result;
-        checkFirstOperand = true;
-        checkResult = false;
-        checkSecondOperand = false;
-        checkOperator = false;
-        secondOperand = "";
-        operator = "";
-      }
-      // if the user input two or more consecutive operators, keep the last one
-      operator = operatorBtn.innerHTML;
-      display.textContent = operator;
-      checkOperator = true;
+      return;
+    }
+
+    // if the user add another operator after the result, the result will become the new first number of the next operation
+    if (checkResult === true) {
       console.log(
-        `first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
+        `RESULT MOVED TO first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
+      );
+      firstOperand = result;
+      checkFirstOperand = true;
+      checkResult = false;
+      checkSecondOperand = false;
+      checkOperator = true;
+      secondOperand = "";
+      operator = "";
+      console.log(
+        `Situation at the end of the block = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
       );
     }
+    // if the user input two or more consecutive operators, keep the last one
+    operator = operatorBtn.innerHTML;
+    display.textContent = operator;
+    checkOperator = true;
+    console.log(
+      `inside operators -> first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
+    );
+
+    // if (checkFirstOperand && checkSecondOperand) {
+    //   console.log(
+    //     `ANOTHER OPERATOR. checkFirstOperand: ${checkFirstOperand}, checkSecondOperand: ${checkSecondOperand}`
+    //   );
+    //   result = operate(firstOperand, operator, secondOperand);
+    //   display.textContent = result;
+    //   checkFirstOperand = false;
+    //   checkOperator = false;
+    //   checkSecondOperand = false;
+    //   checkResult = true;
+    //   firstOperand = "";
+    //   operator = "";
+    //   secondOperand = "";
+
+    //   console.table({
+    //     checkFirstOperand,
+    //     checkOperator,
+    //     checkSecondOperand,
+    //     checkResult,
+    //     firstOperand,
+    //     operator,
+    //     secondOperand,
+    //   });
+    // }
   })
 );
 
@@ -186,9 +218,21 @@ percentageBtn.addEventListener("click", () => {
   );
 
   if (checkFirstOperand && checkOperator && checkSecondOperand) {
-    display.textContent = percentageCalc(firstOperand, operator, secondOperand);
-    checkFirstOperand = true;
+    result = percentageCalc(firstOperand, operator, secondOperand);
+    display.textContent = result;
+    checkResult = true;
+    checkFirstOperand = false;
+    checkSecondOperand = false;
+    checkOperator = false;
   } else if (checkFirstOperand) {
-    display.textContent = percentageCalc(firstOperand);
+    result = percentageCalc(firstOperand);
+    display.textContent = result;
+    checkResult = true;
+    checkFirstOperand = false;
   }
 });
+
+// TODO: implement an alternative calculation flow:
+// display operands and operators in real time,
+// evaluate the expression only on "=",
+// and render the computed result
