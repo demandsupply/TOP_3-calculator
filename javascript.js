@@ -64,7 +64,35 @@ function clear() {
   checkOperator = false;
   checkSecondOperand = false;
   checkResult = false;
+  checkFirstDecimal = false;
+  checkSecondDecimal = false;
   display.textContent = "0";
+}
+
+let checkFirstDecimal = false;
+let checkSecondDecimal = false;
+
+// create function to check if decimal button add decimal or not (if yes it does)
+function checkAndAddDecimal() {
+  if (checkResult) {
+    clear();
+    firstOperand = "0.";
+    checkFirstOperand = true;
+    checkFirstDecimal = true;
+    display.textContent = firstOperand;
+  } else if (checkFirstOperand && checkSecondOperand) {
+    if (!checkSecondDecimal) {
+      secondOperand = secondOperand + ".";
+      display.textContent = secondOperand;
+      checkSecondDecimal = true;
+    }
+  } else if (checkFirstOperand) {
+    if (!checkFirstDecimal) {
+      firstOperand = firstOperand + ".";
+      display.textContent = firstOperand;
+      checkFirstDecimal = true;
+    }
+  } else return;
 }
 
 // create the change sign function
@@ -166,6 +194,8 @@ operators.forEach((operatorBtn) =>
       checkFirstOperand = false;
       checkSecondOperand = false;
       checkOperator = false;
+      checkFirstDecimal = false;
+      checkSecondDecimal = false;
       return;
     }
 
@@ -247,6 +277,8 @@ percentageBtn.addEventListener("click", () => {
 });
 
 signBtn.addEventListener("click", () => changeSign());
+
+decimalBtn.addEventListener("click", () => checkAndAddDecimal());
 
 // TODO: implement an alternative calculation flow:
 // display operands and operators in real time,
