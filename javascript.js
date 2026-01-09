@@ -23,6 +23,7 @@ let checkSecondOperand = false;
 let checkOperator = false;
 let checkResult = false;
 const checkDecimal = false;
+const maxLength = 16;
 
 keys.forEach((key) =>
   key.addEventListener("click", () => {
@@ -52,6 +53,15 @@ function operate(firstOperand, operator, secondOperand) {
 
     return firstOperand / secondOperand;
   }
+}
+
+// create a function to check operands length
+function checkLength(operand) {
+  if (operand.length > maxLength) {
+    alert(`Cannot input more that ${maxLength} digits!`);
+    return true;
+  }
+  return;
 }
 
 // create the clear function
@@ -162,6 +172,9 @@ operands.forEach((operand) =>
       );
     } else if (checkFirstOperand && !checkOperator) {
       firstOperand += operand.innerHTML;
+
+      if (checkLength(firstOperand)) return;
+
       display.textContent = firstOperand;
       console.log(
         `first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
@@ -175,6 +188,9 @@ operands.forEach((operand) =>
       );
     } else {
       secondOperand += operand.innerHTML;
+
+      if (checkLength(secondOperand)) return;
+
       display.textContent = secondOperand;
       console.log(
         `first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
