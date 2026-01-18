@@ -31,7 +31,7 @@ keys.forEach((key) =>
     // console.log(
     //   `first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
     // );
-  })
+  }),
 );
 
 // keep separate "number-buttons" and "operator-buttons"
@@ -137,7 +137,7 @@ function percentageCalc(firstOperand, operator, secondOperand) {
     // or sum from the first operand the result --> 25 - 10% = 25 - 25 * 10 / 100 = 22.5
     if (operator === "+") {
       console.log(
-        `operator: ${operator}, first operand: ${firstOperand}, second operand: ${secondOperand}`
+        `operator: ${operator}, first operand: ${firstOperand}, second operand: ${secondOperand}`,
       );
       return firstOperand + (firstOperand * secondOperand) / 100;
     }
@@ -168,7 +168,7 @@ operands.forEach((operand) =>
       display.textContent = firstOperand;
       checkFirstOperand = true;
       console.log(
-        `first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
+        `first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`,
       );
     } else if (checkFirstOperand && !checkOperator) {
       firstOperand += operand.innerHTML;
@@ -177,14 +177,14 @@ operands.forEach((operand) =>
 
       display.textContent = firstOperand;
       console.log(
-        `first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
+        `first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`,
       );
     } else if (!checkSecondOperand) {
       secondOperand = operand.innerHTML;
       display.textContent = secondOperand;
       checkSecondOperand = true;
       console.log(
-        `first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
+        `first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`,
       );
     } else {
       secondOperand += operand.innerHTML;
@@ -193,10 +193,11 @@ operands.forEach((operand) =>
 
       display.textContent = secondOperand;
       console.log(
-        `first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
+        `first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`,
       );
+      console.table({ checkFirstOperand, checkOperator, checkSecondOperand });
     }
-  })
+  }),
 );
 
 operators.forEach((operatorBtn) =>
@@ -215,10 +216,27 @@ operators.forEach((operatorBtn) =>
       return;
     }
 
+    if (checkFirstOperand && checkOperator && checkSecondOperand) {
+      console.log(
+        "1operand, operator and 2ndoperand check. calculate result and update operator",
+      );
+      firstOperand = operate(firstOperand, operator, secondOperand);
+      checkResult = false;
+      checkFirstOperand = true;
+      secondOperand = "";
+      checkSecondOperand = false;
+      operator = operatorBtn.innerHTML;
+      display.textContent = firstOperand + " " + operator;
+      checkOperator = true;
+      console.log(
+        `Situation at the end of the block = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`,
+      );
+      return;
+    }
     // if the user add another operator after the result, the result will become the new first number of the next operation
     if (checkResult === true) {
       console.log(
-        `RESULT MOVED TO first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
+        `RESULT MOVED TO first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`,
       );
       firstOperand = result;
       checkFirstOperand = true;
@@ -228,7 +246,7 @@ operators.forEach((operatorBtn) =>
       secondOperand = "";
       operator = "";
       console.log(
-        `Situation at the end of the block = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
+        `Situation at the end of the block = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`,
       );
     }
     // if the user input two or more consecutive operators, keep the last one
@@ -236,7 +254,7 @@ operators.forEach((operatorBtn) =>
     display.textContent = operator;
     checkOperator = true;
     console.log(
-      `inside operators -> first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`
+      `inside operators -> first number = ${firstOperand}, operator = ${operator}, second number = ${secondOperand}`,
     );
 
     // if (checkFirstOperand && checkSecondOperand) {
@@ -263,7 +281,7 @@ operators.forEach((operatorBtn) =>
     //     secondOperand,
     //   });
     // }
-  })
+  }),
 );
 
 percentageBtn.addEventListener("click", () => {
@@ -274,7 +292,7 @@ percentageBtn.addEventListener("click", () => {
   }
 
   console.log(
-    `booleans situation: checkFirstOperand -> ${checkFirstOperand}, checkOperator -> ${checkOperator}, checkSecondOperand -> ${checkSecondOperand}`
+    `booleans situation: checkFirstOperand -> ${checkFirstOperand}, checkOperator -> ${checkOperator}, checkSecondOperand -> ${checkSecondOperand}`,
   );
 
   if (checkFirstOperand && checkOperator && checkSecondOperand) {
