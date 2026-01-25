@@ -203,6 +203,10 @@ operands.forEach((operand) =>
 operators.forEach((operatorBtn) =>
   operatorBtn.addEventListener("click", () => {
     if (operatorBtn.innerHTML === "=") {
+      if (!firstOperand || !operator || !secondOperand) {
+        alert("Be sure that |number| |operator| |number| are provided");
+        return;
+      }
       result = operate(firstOperand, operator, secondOperand);
       console.log(result);
       // display the result, and round the long decimals
